@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 </head>
 <body>
-<h1>2019-12-23 </h1>
+<h1>2019-12-23 Google Value</h1>
 
 <script>
 var request=new XMLHttpRequest();
@@ -30,7 +30,7 @@ var request=new XMLHttpRequest();
             document.getElementById(i).innerHTML="15:"+i+":00"+"    "+IntraDay["Time Series (5min)"]["2019-12-23 15:"+i+":00"]["4. close"]
             }
         }
-        request.open("GET","https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=6LLI8OWQELPYPW38" );
+        request.open("GET","https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=GOOGL&interval=5min&apikey=6LLI8OWQELPYPW38" );
         request.send();
 
         
