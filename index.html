@@ -18,20 +18,31 @@ var request=new XMLHttpRequest();
             
             }
 
-
-            for (var h=15;h>9;h-=1)
+            for (var h2=5;h2>=0;h2-=1)
             {
 
-                for (var m=55;m>=00;m-=5)
+            
+
+            for (var m=5;m>=0;m-=1)
+            {
+
+                for (var m2=5;m2>=0;m2-=5)
+
                 {
+                    if(IntraDay["Time Series (5min)"]["2019-12-23 1"+h2+":"+m+m2+":00"]["4. close"]!=null)
+                    {
                     var e = document.createElement("p");
-                    e.setAttribute("id", m);
+                    e.setAttribute("id", "0"+h2+m+m2);
                             
                     document.body.appendChild(e)
                 
-                document.getElementById(m).innerHTML="15:"+m+":00"+"    "+IntraDay["Time Series (5min)"]["2019-12-23 "+h+":"+m+":00"]["4. close"]
+                    document.getElementById("0"+h2+m+m2).innerHTML="1"+h2+":"+m+m2+":00"+"&nbsp;&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+IntraDay["Time Series (5min)"]["2019-12-23 1"+h2+":"+m+m2+":00"]["4. close"]
                 }
+                }
+                
+
             }
+        }
         }
         request.open("GET","https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=GOOGL&interval=5min&apikey=6LLI8OWQELPYPW38" );
         request.send();
