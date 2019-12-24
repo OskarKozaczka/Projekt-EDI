@@ -1,4 +1,40 @@
+<!DOCTYPE html>
+<html>
 <head>
-<a1>TEST</a1>
-
+<meta charset="UTF-8">
 </head>
+<body>
+<h1>2019-12-23 </h1>
+
+<script>
+var request=new XMLHttpRequest();
+
+
+        request.onreadystatechange = function()
+        {
+            if (this.readyState == 4 && this.status == 200)
+            {  
+            var IntraDay=JSON.parse(this.responseText)
+            
+            }
+
+
+
+            for (var i=55;i>00;i-=5)
+            {
+                var e = document.createElement("p");
+                e.setAttribute("id", i);
+                          
+                document.body.appendChild(e)
+            
+            document.getElementById(i).innerHTML="15:"+i+":00"+"    "+IntraDay["Time Series (5min)"]["2019-12-23 15:"+i+":00"]["4. close"]
+            }
+        }
+        request.open("GET","https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=6LLI8OWQELPYPW38" );
+        request.send();
+
+        
+</script>
+
+</body>
+</html>
