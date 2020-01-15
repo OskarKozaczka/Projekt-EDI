@@ -8,8 +8,9 @@
 </head>
 <body>
 
-<button onclick="a()">A</button>
-<button type="button" onclick="b()">B</button>
+
+<input type="text" name="firstname">
+<button onclick="search()">szukaj</button>
 
 
     <table class="table table-striped">
@@ -34,27 +35,25 @@
 <script>
 var letter="";
 
-
-function a()
+function search()
 {
-    
-    //document.querySelector(tr).parentNode.removeChild
 
-    letter="A";
-   
-    display2()
-    
+letter=document.querySelector("input").value
+
+display2()
 }
-function b()
-{
-    //document.querySelector("tr").parentNode.removeChild
-    
-    letter="B";
-    
-    display2()
-    
- 
-}
+
+
+
+
+
+
+
+
+
+
+var letter="";
+
 
 function display2()
 {
@@ -89,16 +88,16 @@ function display()
     var Cena=0;
 
 
-
+    var regexp = new RegExp(letter, "i");
 
 
 
     Response.data.forEach(element => {
 
-        if(element.symbol.charAt(0)==letter)
+        if(element.symbol.match(regexp))
         {
 
-        var request=new XMLHttpRequest();
+var request=new XMLHttpRequest();
 request.onreadystatechange = function()
 {
     if (this.readyState == 4 && this.status == 200)
