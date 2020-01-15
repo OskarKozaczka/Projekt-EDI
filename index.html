@@ -8,6 +8,10 @@
 </head>
 <body>
 
+<button onclick="a()">A</button>
+<button type="button" onclick="b()">B</button>
+
+
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
@@ -28,6 +32,32 @@
 
 
 <script>
+var letter="";
+
+
+function a()
+{
+    
+    //document.querySelector(tr).parentNode.removeChild
+
+    letter="A";
+   
+    display2()
+    
+}
+function b()
+{
+    //document.querySelector("tr").parentNode.removeChild
+    
+    letter="B";
+    
+    display2()
+    
+ 
+}
+
+function display2()
+{
 
 
 var request=new XMLHttpRequest();
@@ -46,7 +76,7 @@ request.onreadystatechange = function()
 request.open("GET","https://api.twelvedata.com/stocks" );
 request.send();
 
-
+}
 
 
     
@@ -58,18 +88,26 @@ function display()
     
     var Cena=0;
 
+
+
+
+
+
     Response.data.forEach(element => {
 
-    
+        if(element.symbol.charAt(0)==letter)
+        {
 
         var request=new XMLHttpRequest();
 request.onreadystatechange = function()
 {
     if (this.readyState == 4 && this.status == 200)
     {  
-        Response=JSON.parse(this.responseText)
+        Response2=JSON.parse(this.responseText)
 
-        Cena=Response.values["0"]["close"]
+
+
+        Cena=Response2.values["0"]["close"]
 
         let output = `
             <td>${element["name"]}</td>
@@ -80,6 +118,8 @@ request.onreadystatechange = function()
         row.innerHTML = output
     
         document.querySelector("tbody").appendChild(row)
+
+    
     }
 
     
@@ -90,7 +130,7 @@ request.send();
 
 
 
-
+}
 
 
 
