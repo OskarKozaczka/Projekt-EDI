@@ -5,14 +5,16 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 </head>
 <body>
 
 
 <input type="text" name="firstname">
 <button onclick="search()">szukaj</button>
-
-
+    <div class="container">
+        <canvas id="myChart"></canvas>
+    </div>
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
@@ -34,7 +36,6 @@
 
 <script>
 var letter="";
-
 function search()
 {
 
@@ -43,7 +44,7 @@ letter=document.querySelector("input").value
 display2()
 }
 
-
+Chartjs()
 
 
 
@@ -54,6 +55,19 @@ display2()
 
 var letter="";
 
+var xchart = new XMLHttpRequest();
+xchart.onreadystatechange = function () {
+  if (this.readyState == 4 && this.status == 200) {
+    var chartdata = JSON.parse(this.response);
+    chartdata = Array.prototype.slice.call(chartdata)
+    var slabels = chartdata.map(function (e) {  // Czemu to nie bierze danych?????
+      return e.data.name;
+    });
+    Chartjs(slabels);
+  }
+};
+xchart.open("GET", "https://api.twelvedata.com/stocks");
+xchart.send();
 
 function display2()
 {
@@ -65,7 +79,7 @@ request.onreadystatechange = function()
     if (this.readyState == 4 && this.status == 200)
     {  
         Response=JSON.parse(this.responseText)
-
+        
         display()
 
     }
@@ -79,12 +93,26 @@ request.send();
 
 
     
+function Chartjs(slabels)
+{
+    var myChart = document.getElementById('myChart').getContext('2d');
+        var stockChart = new Chart(myChart, {
+            type: 'line',
+            data: {
+                labels: slabels,
+                datasets: [{
+                    label: 'Value',
+                    data: [10,20],
+                }],
+            options: {}
+            
+            }
 
-
+        });
+}
 
 function display()
 {
-    
     var Cena=0;
 
 
@@ -105,7 +133,6 @@ request.onreadystatechange = function()
         Response2=JSON.parse(this.responseText)
 
 
-
         Cena=Response2.values["0"]["close"]
 
         let output = `
@@ -118,14 +145,12 @@ request.onreadystatechange = function()
     
         document.querySelector("tbody").appendChild(row)
 
-    
     }
 
     
 }
 request.open("GET","https://api.twelvedata.com/time_series?symbol="+element.symbol+"&interval=1day&apikey=a3e9aa227fd0474494e62f3148d0d7e0&outputsize=1" );
 request.send();
-
 
 
 
