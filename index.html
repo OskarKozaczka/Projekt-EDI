@@ -191,17 +191,20 @@ request.onreadystatechange = function()
         let output = `
             <td>${element["name"]}</td>
             <td>${volume}</td>
-            <td>${difference}%</td>
+            <td id=diff>${difference}%</td>
             <td>${Cena}</td>
 
         `
         let row = document.createElement("tr") 
         row.setAttribute("id","row") 
+        
+        
         row.innerHTML = output
         document.querySelector("tbody").appendChild(row)
         
 
-        //console.log(i)
+        if (difference<0 )row.querySelector("#diff").setAttribute("style","color:red")
+        if (difference>0 )row.querySelector("#diff").setAttribute("style","color:green")
 
     }
 
