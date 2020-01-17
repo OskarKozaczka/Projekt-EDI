@@ -10,6 +10,10 @@
 <body>
 
 
+<button onclick="b()">B</button>
+
+
+
 <input type="text" name="firstname">
 <button onclick="search()">szukaj</button>
     <div class="container">
@@ -35,7 +39,28 @@
 
 
 <script>
-var letter="";
+function b()
+{
+    while(document.querySelectorAll("#row").length>0)
+    {
+    document.querySelector("#row").remove();
+    
+    }
+
+i=0
+var letter="^"+"b"
+regexp = new RegExp(letter,"i")
+
+
+
+display2()
+
+}
+
+
+
+
+
 function search()
 {
     while(document.querySelectorAll("#row").length>0)
@@ -45,7 +70,10 @@ function search()
     }
 
 i=0
-letter=document.querySelector("input").value
+var letter=document.querySelector("input").value
+regexp = new RegExp(letter, "i")
+
+
 
 display2()
 
@@ -57,10 +85,10 @@ display2()
 
 
 
-
+var regexp;
 var i =0;
 
-var letter="";
+
 
 var xchart = new XMLHttpRequest();
 xchart.onreadystatechange = function () {
@@ -123,7 +151,7 @@ function display()
     var Cena=0;
 
 
-    var regexp = new RegExp(letter, "i");
+    
 
 
 
@@ -132,7 +160,7 @@ function display()
         if (i<20)
         {
 
-        if(element.symbol.match(regexp))
+        if(element.symbol.match(regexp)||element.name.match(regexp))
         {
 
 var request=new XMLHttpRequest();
