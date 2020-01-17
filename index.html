@@ -8,7 +8,34 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     </head>
     <body>
-        <button onclick="b()">B</button>
+        <div id="alphabet">
+            <button onclick="b()">A</button>
+            <button onclick="b()">B</button>
+            <button onclick="b()">C</button>
+            <button onclick="b()">D</button>
+            <button onclick="b()">E</button>
+            <button onclick="b()">F</button>
+            <button onclick="b()">G</button>
+            <button onclick="b()">H</button>
+            <button onclick="b()">I</button>
+            <button onclick="b()">J</button>
+            <button onclick="b()">K</button>
+            <button onclick="b()">L</button>
+            <button onclick="b()">M</button>
+            <button onclick="b()">N</button>
+            <button onclick="b()">O</button>
+            <button onclick="b()">P</button>
+            <button onclick="b()">Q</but ton>
+            <button onclick="b()">R</button>
+            <button onclick="b()">S</button>
+            <button onclick="b()">T</button>
+            <button onclick="b()">U</button>
+            <button onclick="b()">V</button>
+            <button onclick="b()">W</button>
+            <button onclick="b()">X</button>
+            <button onclick="b()">Y</button>
+            <button onclick="b()">Z</button>
+        </div>
         <input type="text" name="firstname">
         <button onclick="search()">szukaj</button>
         
@@ -21,7 +48,7 @@
             <tr>
                 <th scope="col" style="text-align: left;">Nazwa</th>
                 <th scope="col">Wolumen</th>
-                <th scope="col">Różnica względem wczoraj</th>
+                <th scope="col">Zmiana</th>
                 <th scope="col">Cena</th>
 
             </tr>
@@ -158,22 +185,19 @@ request.onreadystatechange = function()
 
 
         Cena=Response2.values["0"]["close"]
-        difference=Response2.values["0"]["close"]-Response2.values["1"]["close"]
-        difference=Math.round(difference*10000)/10000;
+        difference=((Response2.values["0"]["close"]-Response2.values["1"]["close"])/Response2.values["0"]["close"])*100
+        difference=Math.round(difference*100)/100;
         volume=Response2.values["0"]["volume"]
-
         let output = `
             <td>${element["name"]}</td>
             <td>${volume}</td>
-            <td>${difference}</td>
+            <td>${difference}%</td>
             <td>${Cena}</td>
 
         `
         let row = document.createElement("tr") 
-
         row.setAttribute("id","row") 
         row.innerHTML = output
-    
         document.querySelector("tbody").appendChild(row)
         
 
