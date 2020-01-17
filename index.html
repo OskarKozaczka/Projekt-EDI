@@ -1,35 +1,34 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-</head>
-<body>
-
-
-<button onclick="b()">B</button>
-
-
-
-<input type="text" name="firstname">
-<button onclick="search()">szukaj</button>
-    <div class="container">
-        <canvas id="myChart"></canvas>
-    </div>
-    <table class="table table-striped">
+    <head>
+        <title>Aplikacja giełdowa</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    </head>
+    <body>
+        <button onclick="b()">B</button>
+        <input type="text" name="firstname">
+        <button onclick="search()">szukaj</button>
+        
+        <div class="container">
+            <canvas id="myChart"></canvas>
+        </div>
+    
+        <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
                 <th scope="col" style="text-align: left;">Nazwa</th>
+                <th scope="col">Wolumen</th>
+                <th scope="col">Różnica względem wczoraj</th>
                 <th scope="col">Cena</th>
 
             </tr>
         </thead>
         <tbody>
         </tbody>
-    </table>
+        </table>
 
 
 
@@ -38,55 +37,42 @@
 
 
 
-<script>
-function b()
-{
-    while(document.querySelectorAll("#row").length>0)
-    {
-    document.querySelector("#row").remove();
+    <script>
+        function b(){
+            while(document.querySelectorAll("#row").length>0){
+                document.querySelector("#row").remove();
     
-    }
+            }
 
-i=0
-var letter="^"+"b"
-regexp = new RegExp(letter,"i")
+            i=0
+            var letter="^"+"b"
+            regexp = new RegExp(letter,"i")
 
+            display2()
 
-
-display2()
-
-}
+        }
 
 
 
 
 
-function search()
-{
-    while(document.querySelectorAll("#row").length>0)
-    {
-    document.querySelector("#row").remove();
-    
-    }
+        function search(){
+            while(document.querySelectorAll("#row").length>0){
+                document.querySelector("#row").remove();
+            }
 
-i=0
-var letter=document.querySelector("input").value
-regexp = new RegExp(letter, "i")
+            i=0
+            var letter=document.querySelector("input").value
+            regexp = new RegExp(letter, "i")
+            display2()
 
+        }
 
+        Chartjs()
+        display2()
 
-display2()
-
-}
-
-Chartjs()
-
-display2()
-
-
-
-var regexp;
-var i =0;
+        var regexp;
+        var i =0;
 
 
 
@@ -172,9 +158,14 @@ request.onreadystatechange = function()
 
 
         Cena=Response2.values["0"]["close"]
+        difference=Response2.values["0"]["close"]-Response2.values["1"]["close"]
+        difference=Math.round(difference*10000)/10000;
+        volume=Response2.values["0"]["volume"]
 
         let output = `
             <td>${element["name"]}</td>
+            <td>${volume}</td>
+            <td>${difference}</td>
             <td>${Cena}</td>
 
         `
@@ -193,7 +184,7 @@ request.onreadystatechange = function()
     i++
 }
 
-request.open("GET","https://api.twelvedata.com/time_series?symbol="+element.symbol+"&interval=1day&apikey=a3e9aa227fd0474494e62f3148d0d7e0&outputsize=1" );
+request.open("GET","https://api.twelvedata.com/time_series?symbol="+element.symbol+"&interval=1day&apikey=a3e9aa227fd0474494e62f3148d0d7e0&outputsize=2" );
 request.send();
 
 
