@@ -38,20 +38,27 @@
 var letter="";
 function search()
 {
+    while(document.querySelectorAll("#row").length>0)
+    {
+    document.querySelector("#row").remove();
+    
+    }
 
+i=0
 letter=document.querySelector("input").value
 
 display2()
+
 }
 
 Chartjs()
 
+display2()
 
 
 
 
-
-
+var i =0;
 
 var letter="";
 
@@ -122,6 +129,9 @@ function display()
 
     Response.data.forEach(element => {
 
+        if (i<20)
+        {
+
         if(element.symbol.match(regexp))
         {
 
@@ -141,14 +151,20 @@ request.onreadystatechange = function()
 
         `
         let row = document.createElement("tr") 
+
+        row.setAttribute("id","row") 
         row.innerHTML = output
     
         document.querySelector("tbody").appendChild(row)
+        
+
+        //console.log(i)
 
     }
 
-    
+    i++
 }
+
 request.open("GET","https://api.twelvedata.com/time_series?symbol="+element.symbol+"&interval=1day&apikey=a3e9aa227fd0474494e62f3148d0d7e0&outputsize=1" );
 request.send();
 
@@ -157,7 +173,7 @@ request.send();
 }
 
 
-
+}
 
     });
 
