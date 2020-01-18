@@ -39,6 +39,8 @@
             <input type="text" name="firstname">
             <button onclick="search()">szukaj</button>
         </div>
+
+
         <div class="container">
             <canvas id="myChart"></canvas>
         </div>
@@ -198,6 +200,9 @@ request.onreadystatechange = function()
 
         `
         let row = document.createElement("tr") 
+        row.setAttribute("nr", i)
+        row.setAttribute("onClick", "click(this.nr);")
+        row.addEventListener('click', click, true)
         row.setAttribute("id","row") 
         
         
@@ -231,7 +236,13 @@ request.send();
 
 
 
+function click(nr)
+{
 
+alert(nr)
+
+
+}
 
 
 
