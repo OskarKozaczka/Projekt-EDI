@@ -69,13 +69,14 @@
 
     <script>
         function b(letterval){
-            if(document.querySelectorAll("#row").length>0){
-                document.querySelector("#row").remove();
+            while(document.querySelectorAll("[type=row]").length>0){
+                document.querySelector("[type=row]").remove();
     
             }
 
             i=0
             console.log(letterval)
+            console.log(document.querySelectorAll("#row").length)
             var letter="^"+letterval
             regexp = new RegExp(letter,"i")
 
@@ -205,7 +206,7 @@ request.onreadystatechange = function()
         row.setAttribute("clicked", false)
         //row.setAttribute("onClick", "click(this)")
         row.addEventListener('click', click, true)
-        //row.setAttribute("id","row") 
+        row.setAttribute("type","row") 
         
         
         row.innerHTML = output
