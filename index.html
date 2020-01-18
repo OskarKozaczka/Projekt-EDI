@@ -200,10 +200,10 @@ request.onreadystatechange = function()
 
         `
         let row = document.createElement("tr") 
-        row.setAttribute("nr", i)
+        row.setAttribute("id", i)
         row.setAttribute("onClick", "click(this.nr);")
         row.addEventListener('click', click, true)
-        row.setAttribute("id","row") 
+        //row.setAttribute("id","row") 
         
         
         row.innerHTML = output
