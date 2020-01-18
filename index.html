@@ -201,7 +201,8 @@ request.onreadystatechange = function()
         `
         let row = document.createElement("tr") 
         row.setAttribute("id", i)
-        row.setAttribute("onClick", "click(this.nr);")
+        row.setAttribute("clicked", false)
+        //row.setAttribute("onClick", "click(this)")
         row.addEventListener('click', click, true)
         //row.setAttribute("id","row") 
         
@@ -236,11 +237,29 @@ request.send();
 
 
 
-function click(nr)
+function click(el)
 {
 
-alert(nr)
+el.target.setAttribute("clicked",true)
 
+
+
+let output = `
+
+            <td>Test</td>
+            <td>Test</td>
+            <td>Test/td>
+            <td>Test</td>
+            <td>Test</td>
+
+        `
+
+let details = document.createElement("tr") 
+
+details.innerHTML = output
+
+
+document.querySelector('[clicked=true]').appendChild(details)
 
 }
 
