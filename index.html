@@ -9,32 +9,32 @@
     </head>
     <body>
         <div id="alphabet">
-            <button onclick="b()">A</button>
-            <button onclick="b()">B</button>
-            <button onclick="b()">C</button>
-            <button onclick="b()">D</button>
-            <button onclick="b()">E</button>
-            <button onclick="b()">F</button>
-            <button onclick="b()">G</button>
-            <button onclick="b()">H</button>
-            <button onclick="b()">I</button>
-            <button onclick="b()">J</button>
-            <button onclick="b()">K</button>
-            <button onclick="b()">L</button>
-            <button onclick="b()">M</button>
-            <button onclick="b()">N</button>
-            <button onclick="b()">O</button>
-            <button onclick="b()">P</button>
-            <button onclick="b()">Q</but ton>
-            <button onclick="b()">R</button>
-            <button onclick="b()">S</button>
-            <button onclick="b()">T</button>
-            <button onclick="b()">U</button>
-            <button onclick="b()">V</button>
-            <button onclick="b()">W</button>
-            <button onclick="b()">X</button>
-            <button onclick="b()">Y</button>
-            <button onclick="b()">Z</button>
+            <button onclick="b('A')">A</button>
+            <button onclick="b('B')">B</button>
+            <button onclick="b('C')">C</button>
+            <button onclick="b('D')">D</button>
+            <button onclick="b('E')">E</button>
+            <button onclick="b('F')">F</button>
+            <button onclick="b('G')">G</button>
+            <button onclick="b('H')">H</button>
+            <button onclick="b('I')">I</button>
+            <button onclick="b('J')">J</button>
+            <button onclick="b('K')">K</button>
+            <button onclick="b('L')">L</button>
+            <button onclick="b('M')">M</button>
+            <button onclick="b('N')">N</button>
+            <button onclick="b('O')">O</button>
+            <button onclick="b('P')">P</button>
+            <button onclick="b('Q')">Q</button>
+            <button onclick="b('R')">R</button>
+            <button onclick="b('S')">S</button>
+            <button onclick="b('T')">T</button>
+            <button onclick="b('U')">U</button>
+            <button onclick="b('V')">V</button>
+            <button onclick="b('W')">W</button>
+            <button onclick="b('X')">X</button>
+            <button onclick="b('Y')">Y</button>
+            <button onclick="b('Z')">Z</button>
         
             <input type="text" name="firstname">
             <button onclick="search()">szukaj</button>
@@ -68,14 +68,15 @@
 
 
     <script>
-        function b(){
-            while(document.querySelectorAll("#row").length>0){
+        function b(letterval){
+            if(document.querySelectorAll("#row").length>0){
                 document.querySelector("#row").remove();
     
             }
 
             i=0
-            var letter="^"+"b"
+            console.log(letterval)
+            var letter="^"+letterval
             regexp = new RegExp(letter,"i")
 
             display2()
