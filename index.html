@@ -70,7 +70,8 @@
     <script>
         function b(letterval){
             if(document.querySelectorAll("#row").length>0){
-                document.querySelector("#row").remove();
+                for(i=0;i<20;i++)
+                    document.querySelector("#row").remove();
     
             }
 
@@ -205,7 +206,7 @@ request.onreadystatechange = function()
         row.setAttribute("clicked", false)
         //row.setAttribute("onClick", "click(this)")
         row.addEventListener('click', click, true)
-        //row.setAttribute("id","row") 
+        row.setAttribute("id","row") 
         
         
         row.innerHTML = output
