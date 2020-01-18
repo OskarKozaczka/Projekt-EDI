@@ -69,14 +69,20 @@
 
     <script>
         function b(letterval){
+<<<<<<< HEAD
             if(document.querySelectorAll("#row").length>0){
                 for(i=0;i<20;i++)
                     document.querySelector("#row").remove();
+=======
+            while(document.querySelectorAll("[type=row]").length>0){
+                document.querySelector("[type=row]").remove();
+>>>>>>> 2b7060246236455d0c3f6e3008649c24a37d99fc
     
             }
 
             i=0
             console.log(letterval)
+            console.log(document.querySelectorAll("#row").length)
             var letter="^"+letterval
             regexp = new RegExp(letter,"i")
 
@@ -206,7 +212,11 @@ request.onreadystatechange = function()
         row.setAttribute("clicked", false)
         //row.setAttribute("onClick", "click(this)")
         row.addEventListener('click', click, true)
+<<<<<<< HEAD
         row.setAttribute("id","row") 
+=======
+        row.setAttribute("type","row") 
+>>>>>>> 2b7060246236455d0c3f6e3008649c24a37d99fc
         
         
         row.innerHTML = output
