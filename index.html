@@ -40,8 +40,8 @@
             <button onclick="search()">szukaj</button>
         </div>
 
-
-        <div class="container">
+        
+        <div class="container" style="position: relative">
             <canvas id="myChart"></canvas>
         </div>
     
@@ -69,14 +69,8 @@
 
     <script>
         function b(letterval){
-<<<<<<< HEAD
-            if(document.querySelectorAll("#row").length>0){
-                for(i=0;i<20;i++)
-                    document.querySelector("#row").remove();
-=======
             while(document.querySelectorAll("[type=row]").length>0){
                 document.querySelector("[type=row]").remove();
->>>>>>> 2b7060246236455d0c3f6e3008649c24a37d99fc
     
             }
 
@@ -114,19 +108,11 @@
 
 
 
-var xchart = new XMLHttpRequest();
-xchart.onreadystatechange = function () {
-  if (this.readyState == 4 && this.status == 200) {
-    var chartdata = JSON.parse(this.response);
-    chartdata = Array.prototype.slice.call(chartdata)
-    var slabels = chartdata.map(function (e) {  // Czemu to nie bierze danych?????
-      return e.data.name;
-    });
-    Chartjs(slabels);
-  }
-};
-xchart.open("GET", "https://api.twelvedata.com/stocks");
-xchart.send();
+
+      
+
+
+
 
 function display2()
 {
@@ -150,18 +136,17 @@ request.send();
 
 }
 
-
     
-function Chartjs(slabels)
+function Chartjs()
 {
     var myChart = document.getElementById('myChart').getContext('2d');
         var stockChart = new Chart(myChart, {
             type: 'line',
             data: {
-                labels: slabels,
+                labels: ["Agilent Technologies Inc", "Applied Optoelectronics Inc", "ABB Ltd","American Airlines Group Inc","AllianceBernstein Holding LP",],
                 datasets: [{
                     label: 'Value',
-                    data: [10,20],
+                    data: [90.17000,14.12000,23.92000,28.40000,33.10000],
                 }],
             options: {}
             
@@ -192,8 +177,10 @@ request.onreadystatechange = function()
 {
     if (this.readyState == 4 && this.status == 200)
     {  
-        Response2=JSON.parse(this.responseText)
-
+        Response2=JSON.parse(this.responseText)       
+        const nazwa=Response.data["0"]["name"]
+       
+        console.log(nazwa)
 
         Cena=Response2.values["0"]["close"]
         difference=((Response2.values["0"]["close"]-Response2.values["1"]["close"])/Response2.values["0"]["close"])*100
@@ -212,11 +199,7 @@ request.onreadystatechange = function()
         row.setAttribute("clicked", false)
         //row.setAttribute("onClick", "click(this)")
         row.addEventListener('click', click, true)
-<<<<<<< HEAD
-        row.setAttribute("id","row") 
-=======
         row.setAttribute("type","row") 
->>>>>>> 2b7060246236455d0c3f6e3008649c24a37d99fc
         
         
         row.innerHTML = output
