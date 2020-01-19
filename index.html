@@ -10,8 +10,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     </head>
     <body>
+        <div id="sideContainer">
+            <h1>Kurs walut</h1>
+            <p id="currencyBlank"></p>
+            
+        </div>
         <div id="mainContainer">    
-        <div class="container" style="position: relative">
+        <div class="container">
             <canvas id="myChart"></canvas>
         </div>
 
@@ -64,13 +69,6 @@
         </tbody>
         </table>
 
-
-
-
-
-
-
-
     <script>
         function b(letterval){
             while(document.querySelectorAll("[type=row]").length>0){
@@ -103,34 +101,27 @@
 
         Chartjs()
         display2()
+        currency()
 
         var regexp;
         var i =0;
 
-function display2()
-{
+    function display2(){
 
-
-var request=new XMLHttpRequest();
-request.onreadystatechange = function()
-{
-    if (this.readyState == 4 && this.status == 200)
-    {  
-        Response=JSON.parse(this.responseText)
-        
-        display()
-
+        var request=new XMLHttpRequest();
+        request.onreadystatechange = function(){
+            if (this.readyState == 4 && this.status == 200)
+            {  
+                Response=JSON.parse(this.responseText)
+                display()
+            }
+        }
+    request.open("GET","https://api.twelvedata.com/stocks" );
+    request.send();
     }
 
     
-}
-request.open("GET","https://api.twelvedata.com/stocks" );
-request.send();
-
-}
-
-    
-function Chartjs()
+    function Chartjs()
 {
     var myChart = document.getElementById('myChart').getContext('2d');
         var stockChart = new Chart(myChart, {
@@ -148,21 +139,14 @@ function Chartjs()
         });
 }
 
-function display()
+    function display()
 {
     var Cena=0;
-
-
-    
-
-
-
     Response.data.forEach(element => {
 
         if (i<20)
         {
-
-        if(element.symbol.match(regexp)||element.name.match(regexp))
+            if(element.symbol.match(regexp)||element.name.match(regexp))
         {
 
 var request=new XMLHttpRequest();
@@ -243,7 +227,19 @@ request.send();
         document.querySelector('[clicked=true]').appendChild(details)
     }
 
-
+    function currency(){ //API kursu walut @Kacper
+        var currency = new XMLHttpRequest();
+        currency.onreadystatechange = function(){
+            if (this.readyState == 4 && this.status == 200)
+                {  
+                    currency2=JSON.parse(this.responseText)  
+                    document.getElementById("currencyBlank").innerHTML = currency2.rates["CAD"];
+                }
+        }
+        currency.open("GET","https://api.exchangeratesapi.io/latest");
+        currency.send();
+    }
+    
 
 </script>
 </div>

@@ -1,14 +1,24 @@
 body{
     display: flex;
+    flex-direction: row;
     justify-content: center;
     background-image: url(tiny-squares.png);
     /*Background image taken from https://www.toptal.com/designers/subtlepatterns/*/
 }
 
+#sideContainer{
+    order:2;
+    margin-left:1%;
+    width:10%;
+    height:50%;
+    background-color: white;
+}
+
 #mainContainer{
     background-color:white;
-    width:80%;
+    width:70%;
     height:100%;
+    order:1;
 }
 
 .letters {
@@ -52,3 +62,4 @@ body{
 #searchingInput{
     width:70%;
 }
+
