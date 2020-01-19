@@ -1,0 +1,54 @@
+body{
+    display: flex;
+    justify-content: center;
+    background-image: url(tiny-squares.png);
+    /*Background image taken from https://www.toptal.com/designers/subtlepatterns/*/
+}
+
+#mainContainer{
+    background-color:white;
+    width:80%;
+    height:100%;
+}
+
+.letters {
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    border-radius: 10%;
+    margin:3px;
+    opacity:0.6;
+}
+
+.letters:hover{
+    opacity:1;
+}
+
+.table-header{
+    font-family: 'Lato', sans-serif; 
+    font-weight: 600;
+}
+
+.table-rows{
+    font-family: 'Libre Caslon Text', serif;
+}
+
+#sortingButtons{
+    text-align: center;
+    
+}
+
+#searchingButton{
+    margin:5px;
+    font-family: 'Lato', sans-serif; 
+    font-weight:600;
+    border-style:outset;
+    border-radius:10%;
+    opacity:0.6;
+    width:10%;
+}
+#searchingButton:hover{
+    opacity:1;
+}
+#searchingInput{
+    width:70%;
+}

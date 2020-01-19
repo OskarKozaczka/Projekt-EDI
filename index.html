@@ -4,59 +4,63 @@
         <title>Aplikacja giełdowa</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Lato|Libre+Caslon+Text&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="style.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     </head>
     <body>
-        <div id="alphabet">
-            <button onclick="b('A')">A</button>
-            <button onclick="b('B')">B</button>
-            <button onclick="b('C')">C</button>
-            <button onclick="b('D')">D</button>
-            <button onclick="b('E')">E</button>
-            <button onclick="b('F')">F</button>
-            <button onclick="b('G')">G</button>
-            <button onclick="b('H')">H</button>
-            <button onclick="b('I')">I</button>
-            <button onclick="b('J')">J</button>
-            <button onclick="b('K')">K</button>
-            <button onclick="b('L')">L</button>
-            <button onclick="b('M')">M</button>
-            <button onclick="b('N')">N</button>
-            <button onclick="b('O')">O</button>
-            <button onclick="b('P')">P</button>
-            <button onclick="b('Q')">Q</button>
-            <button onclick="b('R')">R</button>
-            <button onclick="b('S')">S</button>
-            <button onclick="b('T')">T</button>
-            <button onclick="b('U')">U</button>
-            <button onclick="b('V')">V</button>
-            <button onclick="b('W')">W</button>
-            <button onclick="b('X')">X</button>
-            <button onclick="b('Y')">Y</button>
-            <button onclick="b('Z')">Z</button>
-        
-            <input type="text" name="firstname">
-            <button onclick="search()">szukaj</button>
-        </div>
-
-        
+        <div id="mainContainer">    
         <div class="container" style="position: relative">
             <canvas id="myChart"></canvas>
+        </div>
+
+        <div id="sortingButtons">
+            <hr>
+            <button onclick="b('A')" class="letters">A</button>
+            <button onclick="b('B')" class="letters">B</button>
+            <button onclick="b('C')" class="letters">C</button>
+            <button onclick="b('D')" class="letters">D</button>
+            <button onclick="b('E')" class="letters">E</button>
+            <button onclick="b('F')" class="letters">F</button>
+            <button onclick="b('G')" class="letters">G</button>
+            <button onclick="b('H')" class="letters">H</button>
+            <button onclick="b('I')" class="letters">I</button>
+            <button onclick="b('J')" class="letters">J</button>
+            <button onclick="b('K')" class="letters">K</button>
+            <button onclick="b('L')" class="letters">L</button>
+            <button onclick="b('M')" class="letters">M</button>
+            <button onclick="b('N')" class="letters">N</button>
+            <button onclick="b('O')" class="letters">O</button>
+            <button onclick="b('P')" class="letters">P</button>
+            <button onclick="b('Q')" class="letters">Q</button>
+            <button onclick="b('R')" class="letters">R</button>
+            <button onclick="b('S')" class="letters">S</button>
+            <button onclick="b('T')" class="letters">T</button>
+            <button onclick="b('U')" class="letters">U</button>
+            <button onclick="b('V')" class="letters">V</button>
+            <button onclick="b('W')" class="letters">W</button>
+            <button onclick="b('X')" class="letters">X</button>
+            <button onclick="b('Y')" class="letters">Y</button>
+            <button onclick="b('Z')" class="letters">Z</button>
+            </br>
+            <input type="text" name="firstname" id="searchingInput">
+            <button onclick="search()" id="searchingButton">szukaj</button>
+            <hr>
         </div>
     
         <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
-                <th scope="col" style="text-align: left;">Nazwa</th>
-                <th scope="col">Ticker</th>
-                <th scope="col">Wolumen</th>
-                <th scope="col">Zmiana</th>
-                <th scope="col">Cena</th>
+                <th class="table-header" scope="col" style="text-align: left;">Nazwa</th>
+                <th class="table-header" scope="col">Ticker</th>
+                <th class="table-header" scope="col">Wolumen</th>
+                <th class="table-header" scope="col">Zmiana</th>
+                <th class="table-header" scope="col">Cena</th>
 
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-rows">
         </tbody>
         </table>
 
@@ -84,13 +88,10 @@
 
         }
 
-
-
-
-
         function search(){
-            while(document.querySelectorAll("#row").length>0){
-                document.querySelector("#row").remove();
+            while(document.querySelectorAll("[type=row]").length>0){
+                document.querySelector("[type=row]").remove();
+    
             }
 
             i=0
@@ -105,14 +106,6 @@
 
         var regexp;
         var i =0;
-
-
-
-
-      
-
-
-
 
 function display2()
 {
@@ -232,14 +225,10 @@ request.send();
 
 
 
-function click(el)
-{
+    function click(el){
+        el.target.setAttribute("clicked",true)
 
-el.target.setAttribute("clicked",true)
-
-
-
-let output = `
+        let output = `
 
             <td>Test</td>
             <td>Test</td>
@@ -249,18 +238,14 @@ let output = `
 
         `
 
-let details = document.createElement("tr") 
-
-details.innerHTML = output
-
-
-document.querySelector('[clicked=true]').appendChild(details)
-
-}
+        let details = document.createElement("tr") 
+        details.innerHTML = output
+        document.querySelector('[clicked=true]').appendChild(details)
+    }
 
 
 
 </script>
-
+</div>
 </body>
 </html>
