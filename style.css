@@ -2,7 +2,7 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    background-image: url(tiny-squares.png);
+    background-image: url(embossed-diamond.png);
     /*Background image taken from https://www.toptal.com/designers/subtlepatterns/*/
 }
 

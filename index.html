@@ -165,7 +165,7 @@ request.onreadystatechange = function()
        
         console.log(nazwa)
 
-        Cena=Response2.values["0"]["close"]
+        Cena=Math.round(Response2.values["0"]["close"]*100)/100;
         difference=((Response2.values["0"]["close"]-Response2.values["1"]["close"])/Response2.values["0"]["close"])*100
         difference=Math.round(difference*100)/100;
         volume=Response2.values["0"]["volume"]
