@@ -11,14 +11,13 @@
     </head>
     <body>
         <div id="sideContainer">
-            <h1>Obecny kurs dolara</h1>
-            <div id="waluty">
-                <p id="euro"></p>
-                <p id="zloty"></p>
-                <p id="funt"></p>
-                <p id="aud"></p>
-                <p id="cad"></p>
-                <p id="nok"></p>
+            <button id="collapsible">Obecny kurs dolara</button>
+            <div class="currencyContent" id="waluty">
+                <p class="currencyNumber" id="euro"></p>
+                <p class="currencyNumber" id="zloty"></p>
+                <p class="currencyNumber" id="funt"></p>
+                <p class="currencyNumber" id="aud"></p>
+                <p class="currencyNumber" id="cad"></p>
             </div>
         </div>
         <div id="mainContainer">    
@@ -65,7 +64,7 @@
             <tr>
                 <th class="table-header" scope="col" style="text-align: left;">Nazwa</th>
                 <th class="table-header" scope="col">Ticker</th>
-                <th class="table-header" scope="col">Wolumen</th>
+                <!--<th class="table-header" scope="col">Wolumen</th>-->
                 <th class="table-header" scope="col">Zmiana</th>
                 <th class="table-header" scope="col">Cena</th>
 
@@ -76,6 +75,33 @@
         </table>
 
     <script>
+
+    var coll = document.getElementById("collapsible");
+    var i;
+
+        coll.addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+             if (content.style.maxHeightf){
+                content.style.maxHeight = null;
+            } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+   
+
+
+
+
+        var input = document.getElementById("searchingInput");
+        input.addEventListener("keyup",function(event){
+            if(event.keyCode === 13){
+                event.preventDefault();
+                document.getElementById("searchingButton").click();
+            }
+        });
+
+
         function b(letterval){
             while(document.querySelectorAll("[type=row]").length>0){
                 document.querySelector("[type=row]").remove();
@@ -169,10 +195,15 @@ request.onreadystatechange = function()
         difference=((Response2.values["0"]["close"]-Response2.values["1"]["close"])/Response2.values["0"]["close"])*100
         difference=Math.round(difference*100)/100;
         volume=Response2.values["0"]["volume"]
+        low=Response2.values["0"]["low"]
+        high=Response2.values["0"]["high"]
+        open=Response2.values["0"]["open"]
+
+
+
         let output = `
             <td id=name>${element["name"]}</td>
             <td>${element["symbol"]}</td>
-            <td>${volume}</td>
             <td id=diff>${difference}%</td>
             <td>${Cena} $</td>
 
@@ -183,6 +214,10 @@ request.onreadystatechange = function()
         //row.setAttribute("onClick", "click(this)")
         row.addEventListener('click', click, true)
         row.setAttribute("type","row") 
+        row.setAttribute("volume",volume) 
+        row.setAttribute("low",low)
+        row.setAttribute("high",high)
+        row.setAttribute("open",open)
         
         
         row.innerHTML = output
@@ -207,20 +242,19 @@ request.send();
     });
 }
 
-
-
-
     function click(el){
        
 
-
+        var volume = el.target.parentElement.getAttribute("volume");
+        var low = Math.round(el.target.parentElement.getAttribute("low")*100)/100;
+        var high = Math.round(el.target.parentElement.getAttribute("high")*100)/100;
+        var open = Math.round(el.target.parentElement.getAttribute("open")*100)/100;
         let output = `
 
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test/td>
-            <td>Test</td>
-            <td>Test</td>
+            <td>Wolumen: ${volume}</td>
+            <td>Cena minimalna: ${low}$</td>
+            <td>Cena maksymalna: ${high}$</td>
+            <td>Cena otwarcia: ${open}$</td>
 
         `
 
@@ -239,12 +273,11 @@ request.send();
             if (this.readyState == 4 && this.status == 200)
                 {  
                     currency2=JSON.parse(this.responseText) 
-                    document.getElementById("euro").innerHTML = "EUR: " + currency2.rates["EUR"];
-                    document.getElementById("zloty").innerHTML = "PLN: " + currency2.rates["PLN"];
-                    document.getElementById("funt").innerHTML = "GBP: " + currency2.rates["GBP"];
-                    document.getElementById("aud").innerHTML = "AUD: " + currency2.rates["AUD"];
-                    document.getElementById("cad").innerHTML = "CAD: " + currency2.rates["CAD"]; 
-                    document.getElementById("nok").innerHTML = "NOK: " + currency2.rates["NOK"];
+                    document.getElementById("euro").innerHTML = "EUR: " + Math.round(currency2.rates["EUR"]*100)/100;
+                    document.getElementById("zloty").innerHTML = "PLN: " + Math.round(currency2.rates["PLN"]*100)/100;
+                    document.getElementById("funt").innerHTML = "GBP: " + Math.round(currency2.rates["GBP"]*100)/100;
+                    document.getElementById("aud").innerHTML = "AUD: " + Math.round(currency2.rates["AUD"]*100)/100;
+                    document.getElementById("cad").innerHTML = "CAD: " + Math.round(currency2.rates["CAD"]*100)/100; 
                 }
         }
         currency.open("GET","https://api.exchangeratesapi.io/latest?base=USD");

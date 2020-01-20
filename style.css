@@ -9,15 +9,56 @@ body{
 #sideContainer{
     order:2;
     margin-left:1%;
-    align-content: center;
+    justify-content: center;
     width:15%;
-    height:50%;
+    height:5%;
     background-color: white;
     display: flex;
     flex-direction: column;
-    padding:1%;
     box-shadow: 7px 6px 24px -5px rgba(0,0,0,0.75);;
+    position: fixed;
+    right:5%
 }
+
+.currencyNumber{
+    text-align: center;
+    font-weight: 600;
+}
+
+#sideContainer > #headSide{
+
+    font-size:1.45vw;
+    font-weight: 600;
+
+}
+
+.collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    width:100%
+  }
+  
+  .active, .collapsible:hover {
+    background-color: #555;
+  }
+  
+  .currencyContent {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+    width:100%;
+  }
+
+
 
 #mainContainer{
     background-color:white;
@@ -36,6 +77,8 @@ body{
 
 .letters:hover{
     opacity:1;
+    animation-name:wybuchy;
+    animation-duration:2s;
 }
 
 .table-header{
@@ -66,5 +109,20 @@ body{
 }
 #searchingInput{
     width:70%;
+    
+}
+#info{
+    font-weight:600;
+    background-color:#FF2ACB;
 }
 
+@keyframes wybuchy{
+    from { font-size: 10px; 
+            background-color: yellow;}
+    50% { font-size: 50px; 
+        transform: rotate(360deg);
+    background-color: red;}
+    to { font-size:10px;
+        background-color: yellow;}
+    
+}
