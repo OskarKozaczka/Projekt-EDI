@@ -170,7 +170,7 @@ request.onreadystatechange = function()
         difference=Math.round(difference*100)/100;
         volume=Response2.values["0"]["volume"]
         let output = `
-            <td>${element["name"]}</td>
+            <td id=name>${element["name"]}</td>
             <td>${element["symbol"]}</td>
             <td>${volume}</td>
             <td id=diff>${difference}%</td>
@@ -200,23 +200,19 @@ request.onreadystatechange = function()
 request.open("GET","https://api.twelvedata.com/time_series?symbol="+element.symbol+"&interval=1day&apikey=a3e9aa227fd0474494e62f3148d0d7e0&outputsize=2" );
 request.send();
 
-
-
 }
-
 
 }
 
     });
-
-
 }
 
 
 
 
     function click(el){
-        el.target.setAttribute("clicked",true)
+       
+
 
         let output = `
 
@@ -230,7 +226,11 @@ request.send();
 
         let details = document.createElement("tr") 
         details.innerHTML = output
-        document.querySelector('[clicked=true]').appendChild(details)
+        details.setAttribute("id","info")
+
+        if(document.querySelector("#info")!=null) document.querySelector("#info").remove()
+        else el.target.parentElement.querySelector("#name").appendChild(details)
+        
     }
 
     function currency(){ //API kursu walut @Kacper
