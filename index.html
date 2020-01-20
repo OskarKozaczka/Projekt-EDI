@@ -11,9 +11,15 @@
     </head>
     <body>
         <div id="sideContainer">
-            <h1>Kurs walut</h1>
-            <p id="currencyBlank"></p>
-            
+            <h1>Obecny kurs dolara</h1>
+            <div id="waluty">
+                <p id="euro"></p>
+                <p id="zloty"></p>
+                <p id="funt"></p>
+                <p id="aud"></p>
+                <p id="cad"></p>
+                <p id="nok"></p>
+            </div>
         </div>
         <div id="mainContainer">    
         <div class="container">
@@ -168,7 +174,7 @@ request.onreadystatechange = function()
             <td>${element["symbol"]}</td>
             <td>${volume}</td>
             <td id=diff>${difference}%</td>
-            <td>${Cena}</td>
+            <td>${Cena} $</td>
 
         `
         let row = document.createElement("tr") 
@@ -232,11 +238,16 @@ request.send();
         currency.onreadystatechange = function(){
             if (this.readyState == 4 && this.status == 200)
                 {  
-                    currency2=JSON.parse(this.responseText)  
-                    document.getElementById("currencyBlank").innerHTML = currency2.rates["CAD"];
+                    currency2=JSON.parse(this.responseText) 
+                    document.getElementById("euro").innerHTML = "EUR: " + currency2.rates["EUR"];
+                    document.getElementById("zloty").innerHTML = "PLN: " + currency2.rates["PLN"];
+                    document.getElementById("funt").innerHTML = "GBP: " + currency2.rates["GBP"];
+                    document.getElementById("aud").innerHTML = "AUD: " + currency2.rates["AUD"];
+                    document.getElementById("cad").innerHTML = "CAD: " + currency2.rates["CAD"]; 
+                    document.getElementById("nok").innerHTML = "NOK: " + currency2.rates["NOK"];
                 }
         }
-        currency.open("GET","https://api.exchangeratesapi.io/latest");
+        currency.open("GET","https://api.exchangeratesapi.io/latest?base=USD");
         currency.send();
     }
     
