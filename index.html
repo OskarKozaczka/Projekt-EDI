@@ -271,8 +271,9 @@ function Chartjs2()
             console.log(Ceny)
         
         var myChart = document.getElementById('myChart2').getContext('2d');
-        if(stockChart != undefined) stockChart.destroy()
-            var stockChart = new Chart(myChart, {
+
+        if(stockChart != undefined) stockChart.clear()
+           var stockChart = new Chart(myChart, {
                 type: 'line',
                 data: {
                     labels: [Response2.values[6]["datetime"],Response2.values[5]["datetime"],Response2.values[4]["datetime"],Response2.values[3]["datetime"],Response2.values[2]["datetime"],Response2.values[1]["datetime"],Response2.values[0]["datetime"]],
