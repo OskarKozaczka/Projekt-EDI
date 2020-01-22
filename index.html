@@ -5,20 +5,27 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://fonts.googleapis.com/css?family=Lato|Libre+Caslon+Text&display=swap" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="style.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     </head>
     <body>
         <div id="sideContainer">
-            <button id="collapsible">Obecny kurs dolara</button>
-            <div class="currencyContent" id="waluty">
-                <p class="currencyNumber" id="euro"></p>
-                <p class="currencyNumber" id="zloty"></p>
-                <p class="currencyNumber" id="funt"></p>
-                <p class="currencyNumber" id="aud"></p>
-                <p class="currencyNumber" id="cad"></p>
-            </div>
+            <div class="dropdown">
+                <button type="button" class="btn btn-style btn-primary dropdown-toggle" data-toggle="dropdown">
+                  Kurs dolara
+                </button>
+                <div class="dropdown-menu">
+                  <span id="euro" class="dropdown-item-text"></span>
+                  <span id="zloty" class="dropdown-item-text"></span>
+                  <span id="funt" class="dropdown-item-text"></span>
+                  <span id="aud" class="dropdown-item-text"></span>
+                  <span id="cad" class="dropdown-item-text"></span>
+                </div>
+              </div>
         </div>
         <div id="mainContainer">    
         <div class="container">
@@ -100,24 +107,6 @@
 })();
 
 */
-
-
-
-    var coll = document.getElementById("collapsible");
-    var i;
-
-        coll.addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-             if (content.style.maxHeightf){
-                content.style.maxHeight = null;
-            } else {
-        content.style.maxHeight = content.scrollHeight + "px";
-    } 
-  });
-   
-
-
 
 
         var input = document.getElementById("searchingInput");
