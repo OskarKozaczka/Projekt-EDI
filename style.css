@@ -66,5 +66,11 @@ body{
 }
 #info{
     font-weight:600;
-    background-color:#FF2ACB;
+    background-color:#FFFF;
+}
+#ChartButton{
+    text-align: center;
+}
+#ChartButton:hover{
+    opacity:1;
 }
