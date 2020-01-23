@@ -28,10 +28,12 @@
               </div>
         </div>
         <div id="mainContainer">    
-        <div class="container">
+            <button onclick="ChartType()" >Change chart Type</button>
+        <div class="container" id="ChartC1">
             <h>Najwiekszy wzrost</h>
             <canvas style="position: relative; height:30vh; width:80vw" id="myChart"></canvas>
-        
+        </div>
+         <div class="container" id="ChartC2">
 
             <h>Najwiekszy spadek</h>
             <canvas style="position: relative; height:30vh; width:80vw" id="myChart2"></canvas>
@@ -117,6 +119,17 @@
             }
         });
 
+        var type="line"
+
+        function ChartType()
+        {
+            if (type=="line") type="bar"
+            else type="line"
+            
+            Chartjs1()
+            Chartjs2()
+
+        }
 
         function b(letterval){
 
@@ -210,13 +223,19 @@ function Chartjs1()
             }
         
         console.log(Ceny)
+
+        if(document.querySelector("#myChart")!=null) document.querySelector("#myChart").remove()
+        let Chart1 = document.createElement("canvas") 
+        Chart1.setAttribute("id","myChart")
+        Chart1.setAttribute("Style","position: relative; height:30vh; width:80vw")
+        document.querySelector("#ChartC1").append(Chart1)
         var myChart = document.getElementById('myChart').getContext('2d');
-        while (stockChart != undefined) stockChart.destroy()
-{
+        //if (stockChart != undefined) stockChart.destroy()
+
             
-}
+
             var stockChart = new Chart(myChart, {
-                type: 'line',
+                type: type,
                 data: {
                     labels: [Response2.values[6]["datetime"],Response2.values[5]["datetime"],Response2.values[4]["datetime"],Response2.values[3]["datetime"],Response2.values[2]["datetime"],Response2.values[1]["datetime"],Response2.values[0]["datetime"]],
                     datasets: [{
@@ -235,6 +254,9 @@ function Chartjs1()
 
 function Chartjs2()
     {
+
+
+
 
         let Ceny=[]
 
@@ -258,12 +280,18 @@ function Chartjs2()
 
             }
             console.log(Ceny)
-        
-        var myChart = document.getElementById('myChart2').getContext('2d');
 
-        if(stockChart != undefined) stockChart.clear()
-           var stockChart = new Chart(myChart, {
-                type: 'line',
+            if(document.querySelector("#myChart2")!=null) document.querySelector("#myChart2").remove()
+        let Chart2 = document.createElement("canvas") 
+        Chart2.setAttribute("id","myChart2")
+        Chart2.setAttribute("Style","position: relative; height:30vh; width:80vw")
+        document.querySelector("#ChartC2").appendChild(Chart2)
+        
+        var myChart2 = document.getElementById('myChart2').getContext('2d');
+
+       // if(stockChart != undefined) stockChart.clear()
+           var stockChart = new Chart(myChart2, {
+                type: type,
                 data: {
                     labels: [Response2.values[6]["datetime"],Response2.values[5]["datetime"],Response2.values[4]["datetime"],Response2.values[3]["datetime"],Response2.values[2]["datetime"],Response2.values[1]["datetime"],Response2.values[0]["datetime"]],
                     datasets: [{
