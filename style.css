@@ -74,3 +74,6 @@ body{
 #ChartButton:hover{
     opacity:1;
 }
+.btn{
+    background-color: rgb(243, 242, 242);
+}
