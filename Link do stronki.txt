@@ -1,3 +1,0 @@
-Site that shows the biggest NASDAQ ans NYSE stocks with current price and daily change
-
-http://v-ie.uek.krakow.pl/~s214508/projekt/
