@@ -111,9 +111,7 @@
         }
         return open.apply(this, args);
     };
-})();
-
-
+});
 
         var input = document.getElementById("searchingInput");
         input.addEventListener("keyup",function(event){
@@ -139,7 +137,8 @@
 
             ChangeMin=100;
             ChangeMax=-100;
-            while(document.querySelectorAll("[type=row]").length>0){
+            while(document.querySelectorAll("[type=row]").length>0)
+            {
                 document.querySelector("[type=row]").remove();
     
             }
@@ -158,9 +157,9 @@
 
             ChangeMin=100;
             ChangeMax=-100;
-            while(document.querySelectorAll("[type=row]").length>0){
+            while(document.querySelectorAll("[type=row]").length>0)
+            {
                 document.querySelector("[type=row]").remove();
-    
             }
 
             i=0
@@ -181,8 +180,6 @@
         var regexp;
         var i =0;
 
-
-
     function display2(){
 
         var request=new XMLHttpRequest();
@@ -195,19 +192,15 @@
                // Chartjs2()
             }
         }
-    request.open("GET","https://api.twelvedata.com/stocks" );
+    request.open("GET","https://api.twelvedata.com/stocks?exchange=NASDAQ");
     request.send();
     }
 
     
 function Chartjs1()
     {
-
-        
-
         let Ceny=[]
 
-        
         var request=new XMLHttpRequest();
         request.onreadystatechange = function()
         {
@@ -258,13 +251,8 @@ function Chartjs1()
 
 function Chartjs2()
     {
-
-
-
-
         let Ceny=[]
 
-        
         var request=new XMLHttpRequest();
         request.onreadystatechange = function()
         {
@@ -273,11 +261,7 @@ function Chartjs2()
         let Response2=JSON.parse(this.responseText)
             if(Response2.values!=null)
             {
-
-
                // console.log(Response3[0]["4. close"])
-
-
                for(let i=6;i>=0;i--)
             {
                 Ceny.push(Response2.values[i]["close"])
@@ -333,67 +317,73 @@ request.onreadystatechange = function()
     {  
 
 
-        Response2=JSON.parse(this.responseText)       
+        Response2=JSON.parse(this.responseText)    
+        
+        console.log(Response2)
 
-        Cena=Math.round(Response2.values["0"]["close"]*100)/100;
-        difference=((Response2.values["0"]["close"]-Response2.values["1"]["close"])/Response2.values["0"]["close"])*100
-        difference=Math.round(difference*100)/100;
-        volume=Response2.values["0"]["volume"]
-        low=Response2.values["0"]["low"]
-        high=Response2.values["0"]["high"]
-        open=Response2.values["0"]["open"]
-
-        if(difference>ChangeMax)
+        if (Response2.status=='ok')
         {
-            ChangeMax=difference
-            SymbolMax=element.symbol
-            console.log( ChangeMax,SymbolMax)
-            Chartjs1() 
+            
+    
+            Cena=Math.round(Response2.values["0"]["close"]*100)/100;
+            difference=((Response2.values["0"]["close"]-Response2.values["1"]["close"])/Response2.values["0"]["close"])*100
+            difference=Math.round(difference*100)/100;
+            volume=Response2.values["0"]["volume"]
+            low=Response2.values["0"]["low"]
+            high=Response2.values["0"]["high"]
+            open=Response2.values["0"]["open"]
+    
+            if(difference>ChangeMax)
+            {
+                ChangeMax=difference
+                SymbolMax=element.symbol
+                console.log(ChangeMax,SymbolMax)
+                Chartjs1() 
+    
+            }
+    
+            if(difference<ChangeMin)
+            {
+                ChangeMin=difference
+                SymbolMin=element.symbol
+                console.log(ChangeMin,SymbolMin)
+                Chartjs2()
+    
+            }
+    
+            let output = `
+                <td id=name>${element["name"]}</td>
+                <td>${element["symbol"]}</td>
+                <td id=diff>${difference}%</td>
+                <td>${Cena} $</td>
+    
+            `
+            let row = document.createElement("tr") 
+            row.setAttribute("id", i)
+            row.setAttribute("clicked", false)
+            //row.setAttribute("onClick", "click(this)")
+            row.addEventListener('click', click, true)
+            row.setAttribute("type","row") 
+            row.setAttribute("volume",volume) 
+            row.setAttribute("low",low)
+            row.setAttribute("high",high)
+            row.setAttribute("open",open)
+            
+            
+            row.innerHTML = output
+            document.querySelector("tbody").appendChild(row)
+            
+    
+            if (difference<0 )row.querySelector("#diff").setAttribute("style","color:red")
+            if (difference>0 )row.querySelector("#diff").setAttribute("style","color:green")
 
-        }
-
-        if(difference<ChangeMin)
+            console.log(document.querySelectorAll("[type=row]").length)
+        }else
         {
-            ChangeMin=difference
-            SymbolMin=element.symbol
-            console.log( ChangeMin,SymbolMin)
-            Chartjs2()
-
+            console.log(element.symbol,"error")
         }
-
-        let output = `
-            <td id=name>${element["name"]}</td>
-            <td>${element["symbol"]}</td>
-            <td id=diff>${difference}%</td>
-            <td>${Cena} $</td>
-
-        `
-        let row = document.createElement("tr") 
-        row.setAttribute("id", i)
-        row.setAttribute("clicked", false)
-        //row.setAttribute("onClick", "click(this)")
-        row.addEventListener('click', click, true)
-        row.setAttribute("type","row") 
-        row.setAttribute("volume",volume) 
-        row.setAttribute("low",low)
-        row.setAttribute("high",high)
-        row.setAttribute("open",open)
-        
-        
-        row.innerHTML = output
-        document.querySelector("tbody").appendChild(row)
         
 
-        if (difference<0 )row.querySelector("#diff").setAttribute("style","color:red")
-        if (difference>0 )row.querySelector("#diff").setAttribute("style","color:green")
-
-
-        if(document.querySelectorAll("[type=row]").length==20) 
-    {
-       // Chartjs1()
-       // Chartjs2()
-    }     
-        console.log(document.querySelectorAll("[type=row]").length)
     }
 
     i++
@@ -403,6 +393,9 @@ request.open("GET","https://api.twelvedata.com/time_series?symbol="+element.symb
 request.send();
 
 }
+
+Chartjs1();
+Chartjs2();
 
 }
 
@@ -440,14 +433,14 @@ request.send();
             if (this.readyState == 4 && this.status == 200)
                 {  
                     currency2=JSON.parse(this.responseText) 
-                    document.getElementById("euro").innerHTML = "EUR: " + Math.round(currency2.rates["EUR"]*100)/100;
-                    document.getElementById("zloty").innerHTML = "PLN: " + Math.round(currency2.rates["PLN"]*100)/100;
-                    document.getElementById("funt").innerHTML = "GBP: " + Math.round(currency2.rates["GBP"]*100)/100;
-                    document.getElementById("aud").innerHTML = "AUD: " + Math.round(currency2.rates["AUD"]*100)/100;
-                    document.getElementById("cad").innerHTML = "CAD: " + Math.round(currency2.rates["CAD"]*100)/100; 
+                    document.getElementById("euro").innerHTML = "EUR: " + Math.round(currency2.rates["EUR"]/currency2.rates["USD"]*100)/100;
+                    document.getElementById("zloty").innerHTML = "PLN: " + Math.round(currency2.rates["PLN"]/currency2.rates["USD"]*100)/100;
+                    document.getElementById("funt").innerHTML = "GBP: " + Math.round(currency2.rates["GBP"]/currency2.rates["USD"]*100)/100;
+                    document.getElementById("aud").innerHTML = "AUD: " + Math.round(currency2.rates["AUD"]/currency2.rates["USD"]*100)/100;
+                    document.getElementById("cad").innerHTML = "CAD: " + Math.round(currency2.rates["CAD"]/currency2.rates["USD"]*100)/100; 
                 }
         }
-        currency.open("GET","https://api.exchangeratesapi.io/latest?base=USD");
+        currency.open("GET","http://api.exchangeratesapi.io/latest?access_key=7df44c41bd193de6cca3df6f5134768d");
         currency.send();
     }
 
